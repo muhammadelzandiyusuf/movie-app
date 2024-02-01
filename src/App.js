@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Loading from 'components/Loading';
+import routes from 'routes';
+import { store } from 'stores';
+import MainContainer from 'containers/MainContainer';
+
+import 'assets/scss/global.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Suspense fallback={<Loading />}>
+        <BrowserRouter>
+          <MainContainer>
+            <Routes>
+              {routes.map((route, index) => (
+                <Route {...route} key={index} />
+              ))}
+            </Routes>
+          </MainContainer>
+        </BrowserRouter>
+      </Suspense>
+    </Provider>
   );
 }
 

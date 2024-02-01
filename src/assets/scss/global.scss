@@ -1,0 +1,43 @@
+@import "./color";
+@import "./spacing";
+@import "./typography";
+@import "./variable";
+
+*{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  box-sizing: border-box;
+}
+
+html, body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.overlay{
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+}
+
+.display--flex{display: flex;}
+.justify__content--center{justify-content: center;}
+.align__items--center{align-items: center;}
+.flex__direction--column{flex-direction: column;}
+
+*{box-sizing: border-box; margin: 0;}
+a{color: inherit;text-decoration: inherit;}
+
+.alert{
+  background-color: $colorWhite;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.cursor--pointer{cursor: pointer;}
