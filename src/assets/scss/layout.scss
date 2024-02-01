@@ -93,6 +93,16 @@
       overflow-y: auto;
       background-color: $colorBackground;
     }
+    .footer{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background-color: $colorWhite;
+      font-size: 14px;
+      color: $colorGrey;
+    }
   }
 
   @media(max-width: $resolutionMobile){

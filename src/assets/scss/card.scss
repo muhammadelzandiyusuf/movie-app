@@ -64,6 +64,9 @@
       &:last-child{
         margin-bottom: 0;
       }
+      .item__header{
+        height: auto;
+      }
       .item__body{
         display: flex;
         align-items: center;
