@@ -1,0 +1,36 @@
+@import "./resolution";
+@import "./variable";
+
+.header{
+  margin: 24px;
+  padding: 16px;
+  background-color: $colorWhite;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  .header__content{
+    display: flex;
+    gap: 12px;
+  }
+
+  @media(max-width: $resolutionMobile){
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    .header__title{
+      margin-bottom: 16px;
+      h1{
+        font-size: 18px !important;
+        line-height: 1;
+      }
+      h5{
+        font-size: 14px !important;
+      }
+    }
+    .header__content{
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+}
