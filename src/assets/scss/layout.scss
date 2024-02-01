@@ -10,8 +10,21 @@
     overflow-y: auto;
     overflow-x: hidden;
     background-color: $colorWhite;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+    .close {
+      cursor: pointer;
+    }
+    &.show{
+      display: block;
+    }
     .logo{
       padding: 16px;
+      display: flex;
+      justify-content: flex-end;
       img{
         height: 24px;
         width: auto;
@@ -49,13 +62,25 @@
       padding: 16px 32px;
       background-color: $colorWhite;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       .avatar{
         height: 32px;
       }
+      .profile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .watchlist{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
+        }
+      }
       .mobile__menu{
-        display: none;
+        display: flex;
         align-items: center;
         .menu__logo{
           height: 18px;
@@ -64,23 +89,13 @@
     }
     .main__content{
       height: calc(100vh - 64px);
-      width: calc(100vw - 248px);
+      width: 100vw;
       overflow-y: auto;
       background-color: $colorBackground;
     }
   }
 
   @media(max-width: $resolutionMobile){
-    .sidebar{
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 3;
-      display: none;
-      &.show{
-        display: block;
-      }
-    }
     .main__layout{
       .navbar{
         justify-content: space-between;

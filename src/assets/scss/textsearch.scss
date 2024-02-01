@@ -12,6 +12,8 @@
     -moz-transform: translateY(-50%);
   }
   input{
+    width: 480px;
+    max-width: 100%;
     padding: 12px;
     outline: none;
     border: 1px solid $colorBorder;
