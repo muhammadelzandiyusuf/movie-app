@@ -1,0 +1,105 @@
+@import "./resolution";
+@import "./variable";
+
+.summary{
+  width: 100%;
+  display: flex;
+  background-color: $colorWhite;
+  .summary__left {
+    position: relative;
+    width: calc(100vw - 450px);
+    padding: 0 16px 0 0;
+    .summary__left__content{
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        width: 100%;
+      }
+      .summary__left__overlay{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        color: $colorWhite;
+        background: linear-gradient(transparent 0%, transparent 65%, rgba(0, 0, 0, 0.7) 77%, rgb(0, 0, 0) 85%, rgb(0, 0, 0) 100%);
+      }
+      .summary__left__wrapper{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        color: $colorWhite;
+        z-index: 100;
+        padding: 0 0 16px 16px;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 36px;
+        .summary__left__cover{
+          width: 165px;
+          z-index: 100;
+          bottom: 0;
+          left: 16px;
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 0 15px 0 rgb(0, 0, 0, 0.5);
+          img{
+            width: 100%;
+          }
+        }
+        .summary__left__text{
+          display: flex;
+          gap: 8px;
+          color: $colorWhite;
+          align-items: center;
+        }
+        &:hover{
+          cursor: pointer;
+          .summary__left__text{
+            color: $colorPrimary;
+          }
+        }
+      }
+    }
+  }
+  .summary__right {
+    position: relative;
+    width: 400px;
+    padding: 0 16px 0 24px;
+    .list__summary {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      justify-content: flex-start;
+      .list__summary__item {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        .list__summary__image{
+          width: 150px;
+          img{
+            width: 100%;
+          }
+        }
+        .list__summary__text{
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          color: $colorBlack;
+        }
+        &:hover {
+          cursor: pointer;
+          .list__summary__text{
+            color: $colorPrimary;
+          }
+        }
+      }
+    }
+  }
+}
