@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineClose } from 'react-icons/ai';
 import { MdLocalMovies } from 'react-icons/md';
 import { RiMovie2Fill } from 'react-icons/ri';
+import urls from 'utils/urls';
 
 const SidebarContainer = () => {
   const showMenu = useSelector(menuSelector);
@@ -24,13 +25,13 @@ const SidebarContainer = () => {
           </div>
         </div>
         <div className='sidebar__menu'>
-          <Link to='/'>
+          <Link to={urls.home} onClick={closeMenu}>
             <AiOutlineHome className='icon' /> Beranda
           </Link>
-          <Link to='/' className='active'>
+          <Link to={urls.movie} className='active' onClick={closeMenu}>
             <MdLocalMovies className='icon' /> Movies
           </Link>
-          <Link to='/'>
+          <Link to={urls.movie} onClick={closeMenu}>
             <RiMovie2Fill className='icon' /> Anime
           </Link>
         </div>
