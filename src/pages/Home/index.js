@@ -1,29 +1,16 @@
 import { Fragment } from 'react';
 import { Helmet } from 'react-helmet';
-import HeaderTitle from 'components/HeaderTitle';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { searchDriver } from 'stores';
+import TopMovie from 'components/TopMovie';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleSearch = (value) => {
-    dispatch(searchDriver(value));
-    navigate('/');
-  };
-
   return (
     <Fragment>
       <Helmet>
         <title>Shipper Driver Management</title>
       </Helmet>
-      <HeaderTitle
-        title='Driver Management'
-        description='Daftar Driver yang bekerja dengan Anda'
-        onChangeSearch={handleSearch}
-      />
+      <TopMovie title='Top Movies' description='Movies kesayangan kamu' />
+      <TopMovie title='Top Anime' description='Anime kesayangan kamu' />
+      <TopMovie title='Watchlist' description='Tonton yuk watchlist kamu' />
     </Fragment>
   );
 };

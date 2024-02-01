@@ -1,0 +1,76 @@
+@import "./resolution";
+@import "./variable";
+
+.card__list {
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 100%;
+  padding-bottom: 16px;
+  .list__item {
+    width: 250px;
+    background-color: $colorWhite;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 0 16px;
+    border: 1px solid $colorBorder;
+    .item__header{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid $colorBorder;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      height: 350px;
+      img {
+        width: 100%;
+      }
+    }
+    .item__body{
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      .item__label{
+        word-break: break-word;
+        white-space: pre-wrap;
+      }
+      .item__watch{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        font-size: 14px;
+        color: $colorWhite;
+        background-color: $colorPrimary;
+        border-radius: 8px;
+        &:hover{
+          cursor: pointer;
+          background-color: $colorPrimaryHover;
+        }
+      }
+      .item__start{
+        display: flex;
+        gap: 4px;
+      }
+    }
+    @media(max-width: $resolutionMobile){
+      display: block;
+      width: calc(100% - 48px);
+      margin: 0px auto;
+      margin-bottom: 24px;
+      &:last-child{
+        margin-bottom: 0;
+      }
+      .item__body{
+        display: flex;
+        align-items: center;
+      }
+    }
+    &:hover{
+      box-shadow: 2px 2px 15px 0 $colorBorder;
+    }
+  }
+}

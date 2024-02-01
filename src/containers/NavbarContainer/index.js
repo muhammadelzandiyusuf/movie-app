@@ -14,7 +14,10 @@ const NavbarContainer = () => {
   return (
     <div className='navbar'>
       <div className='mobile__menu'>
-        <AiOutlineMenu className='font__size--24 margin__right--16px' onClick={openMenu} />
+        <AiOutlineMenu
+          className='font__size--24 margin__right--16px cursor--pointer'
+          onClick={openMenu}
+        />
         <TextSearch
           placeholder='Cari Movie'
           icon={<AiOutlineSearch className='icon font__size--18 color__primary' />}
