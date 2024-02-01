@@ -1,0 +1,16 @@
+{
+  "env": {
+    "browser": true,
+    "es2023": true,
+    "jest": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "plugin:prettier/recommended"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "prettier/prettier": "error"
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}

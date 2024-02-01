@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": "./src",
+    "sourceMap": true,
+    "paths": {
+      "assets": [
+        "./assets"
+      ],
+      "components": [
+        "./components"
+      ],
+      "configs": [
+        "./configs"
+      ],
+      "containers": [
+        "./containers"
+      ],
+      "libraries": [
+        "./libraries"
+      ],
+      "pages": [
+        "./pages"
+      ],
+      "routes": [
+        "./routes"
+      ],
+      "services": [
+        "./services"
+      ],
+      "stores": [
+        "./stores"
+      ],
+      "utils": [
+        "./utils"
+      ]
+    }
+  }
+}
