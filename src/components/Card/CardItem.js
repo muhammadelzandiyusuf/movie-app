@@ -12,7 +12,7 @@ const CardItem = () => {
         <div className='item__start'>
           <FaStar size={18} /> <span className='font__size--14'>8.6</span>
         </div>
-        <CardLabel label='Nama Driver' />
+        <CardLabel label='1998' value='Nama Movie' />
         <div className='item__watch'>
           <FaPlus size={14} /> Watchlist
         </div>

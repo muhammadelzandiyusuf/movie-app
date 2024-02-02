@@ -1,7 +1,8 @@
-const CardLabel = ({ label }) => {
+const CardLabel = ({ label, value }) => {
   return (
     <div className='item__label' data-testid='cardlabel'>
-      <h5 className='font__size--14 font__weight--400'>{label}</h5>
+      <h6 className='color__grey font__weight--400'>{label}</h6>
+      <h5 className='font__weight--400'>{value}</h5>
     </div>
   );
 };

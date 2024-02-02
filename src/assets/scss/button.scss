@@ -10,6 +10,8 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
   &.primary{
     background-color: $colorPrimary;
     border-color: $colorPrimary;
@@ -17,5 +19,8 @@
     &:hover{
       background-color: $colorPrimaryHover;
     }
+  }
+  &.fullwidth{
+    width: 100%;
   }
 }

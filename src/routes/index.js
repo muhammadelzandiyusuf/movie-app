@@ -6,6 +6,7 @@ const MoviePages = lazy(() => import('pages/Movie'));
 const AnimePages = lazy(() => import('pages/Anime'));
 const SearchPages = lazy(() => import('pages/Search'));
 const WatchlistPages = lazy(() => import('pages/Watchlist'));
+const MovieDetailPages = lazy(() => import('pages/MovieDetail'));
 
 const routes = [
   { title: 'Home Management', element: <HomePages />, exact: true, path: urls.home },
@@ -13,6 +14,7 @@ const routes = [
   { title: 'Anime Management', element: <AnimePages />, path: urls.anime },
   { title: 'Search Management', element: <SearchPages />, path: urls.search },
   { title: 'Watchlist Management', element: <WatchlistPages />, path: urls.watchlist },
+  { title: 'Movie Detail Management', element: <MovieDetailPages />, path: urls.movieDetail },
 ];
 
 export default routes;
