@@ -17,6 +17,9 @@
       "containers": [
         "./containers"
       ],
+      "errors": [
+        "./errors"
+      ],
       "libraries": [
         "./libraries"
       ],
