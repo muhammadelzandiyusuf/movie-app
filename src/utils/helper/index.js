@@ -1,3 +1,7 @@
+import Localbase from 'localbase';
+
+const localDb = new Localbase('movies');
+
 export const getPath = (path = '') => (path ? `/${path}` : '');
 
 export const createUrlParamFromObj = (params = null) => {
@@ -37,4 +41,19 @@ export const updateObject = (oldObject, updateProperties) => {
     ...oldObject,
     ...updateProperties,
   };
+};
+
+export const getSliceData = (params, limit) => {
+  const page = parseInt(params.get('page') ? params.get('page') : 1);
+  const from = (page - 1) * limit;
+  const to = page * limit;
+  return {
+    from,
+    to,
+    page,
+  };
+};
+
+export const addDbCollection = (table, value) => {
+  localDb.collection(table).add(value);
 };

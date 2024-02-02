@@ -1,0 +1,10 @@
+.pagination{
+  display: flex;
+  gap: 32px;
+  margin-bottom: 16px;
+  h5{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+  }
+}
