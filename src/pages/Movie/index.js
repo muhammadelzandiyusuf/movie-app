@@ -11,6 +11,7 @@ import Localbase from 'localbase';
 import { getMovies } from 'services';
 import Loading from 'components/Loading';
 import urls from 'utils/urls';
+import { noDataImage } from 'libraries/image';
 
 import 'assets/scss/movie.scss';
 import 'assets/scss/card.scss';
@@ -63,8 +64,10 @@ const Movie = () => {
             <Pagination total={movies?.movieList?.length} limit={limit} current={getSlice.page} />
           </Fragment>
         ) : (
-          <div className='alert margin__left--24px margin__right--24px'>
-            <h5 className='color__grey font__weight--500'>Data yang dicari tidak ditemukan</h5>
+          <div className='alert'>
+            <div className='alert__image'>
+              <img src={noDataImage.image} alt={noDataImage.alt} />
+            </div>
           </div>
         )}
       </Fade>

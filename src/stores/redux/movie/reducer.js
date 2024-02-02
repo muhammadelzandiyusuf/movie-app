@@ -14,10 +14,19 @@ const getMovie = (state, action) => {
   const animeList = action.data?.filter((item) => item.type === 'Anime');
   const movieList = action.data?.filter((item) => item.type === 'Movie');
 
+  const originalList = state.originalListMovies;
+  const search = state.search.toLowerCase();
+  const searchList = originalList.filter(
+    (row) =>
+      row.title.toLowerCase().indexOf(search) > -1 ||
+      row.year.toLowerCase().indexOf(search) > -1 ||
+      row.type.toLowerCase().indexOf(search) > -1,
+  );
+
   return updateObject(state, {
     ...state,
     originalListMovies: action.data,
-    movies: action.data,
+    movies: search === '' ? action.data : searchList,
     animeList: animeList,
     movieList: movieList,
   });

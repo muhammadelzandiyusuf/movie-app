@@ -35,9 +35,21 @@ html, body{
 a{color: inherit;text-decoration: inherit;}
 
 .alert{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $colorWhite;
-  padding: 16px;
-  border-radius: 8px;
+  .alert__image{
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: 100%;
+    }
+  }
 }
 
 .cursor--pointer{cursor: pointer;}
