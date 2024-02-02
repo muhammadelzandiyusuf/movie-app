@@ -1,11 +1,12 @@
 import { Fade } from 'react-awesome-reveal';
+import { Link } from 'react-router-dom';
 import Button from '../Button';
 import CardItem from '../Card/CardItem';
 
 import 'assets/scss/header.scss';
 import 'assets/scss/card.scss';
 
-const TopMovie = ({ title, description }) => {
+const TopMovie = ({ title, description, onSeeMore }) => {
   return (
     <div className='header'>
       <div className='header__content'>
@@ -20,7 +21,9 @@ const TopMovie = ({ title, description }) => {
           </Fade>
         </div>
         <Fade direction='up' triggerOnce>
-          <Button type='primary'>See More</Button>
+          <Link to={onSeeMore}>
+            <Button type='primary'>See More</Button>
+          </Link>
         </Fade>
       </div>
       <Fade direction='up' triggerOnce>

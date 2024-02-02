@@ -4,6 +4,8 @@ import { AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
 import TextSearch from 'components/TextSearch';
 import { BsBookmarkHeartFill } from 'react-icons/bs';
 import { FaCircleUser } from 'react-icons/fa6';
+import urls from 'utils/urls';
+import { Link } from 'react-router-dom';
 
 const NavbarContainer = () => {
   const dispatch = useDispatch();
@@ -24,10 +26,12 @@ const NavbarContainer = () => {
         />
       </div>
       <div className='profile'>
-        <div className='watchlist'>
-          <h5 className='username font__size--12 font__weight--600'>Watchlist</h5>
-          <BsBookmarkHeartFill size={24} className='margin__right--16px' />
-        </div>
+        <Link to={urls.watchlist}>
+          <div className='watchlist'>
+            <h5 className='username font__size--12 font__weight--600'>Watchlist</h5>
+            <BsBookmarkHeartFill size={24} className='margin__right--16px' />
+          </div>
+        </Link>
         <h5 className='username font__size--12 font__weight--600 margin__right--8px'>
           Hello, <span className='color__primary'>Elzandi</span>
         </h5>

@@ -3,6 +3,7 @@ const urls = {
   movie: '/movie',
   anime: '/anime',
   search: '/search',
+  watchlist: '/watchlist',
   movieDetail: '/movie/:url',
 };
 
