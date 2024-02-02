@@ -3,7 +3,7 @@ import appConfig from '../appConfigs';
 export const config = appConfig;
 
 const baseUrl = {
-  driver: `${config.url.api}api/`,
+  movie: `${config.url.api}movies/`,
 };
 
 export default baseUrl;

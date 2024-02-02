@@ -1,6 +1,8 @@
 import Localbase from 'localbase';
 
-const localDb = new Localbase('movies');
+export const dbName = 'movies';
+export const tbName = 'movie';
+const localDb = new Localbase(dbName);
 
 export const getPath = (path = '') => (path ? `/${path}` : '');
 

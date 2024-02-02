@@ -3,13 +3,16 @@ import { useForm } from 'react-hook-form';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import urls from 'utils/urls';
+import { useDispatch } from 'react-redux';
+import { searchMovie } from 'stores';
 
 const TextSearch = (props) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
   const handleSubmitForm = useCallback((data) => {
-    console.log(data);
+    dispatch(searchMovie(data.search));
     navigate(urls.search, { replace: true });
   }, []);
 

@@ -4,6 +4,6 @@ import ApiRequest from 'configs/api/config';
 const API = {};
 
 // Driver
-API.getDriver = ApiRequest.get(baseUrl.driver);
+API.getMovie = ApiRequest.get(baseUrl.movie);
 
 export default API;

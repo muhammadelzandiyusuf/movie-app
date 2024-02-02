@@ -2,11 +2,12 @@ import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
 import CardItem from '../Card/CardItem';
+import urls from 'utils/urls';
 
 import 'assets/scss/header.scss';
 import 'assets/scss/card.scss';
 
-const TopMovie = ({ title, description, onSeeMore }) => {
+const TopMovie = ({ title, description, onSeeMore, data }) => {
   return (
     <div className='header'>
       <div className='header__content'>
@@ -28,14 +29,11 @@ const TopMovie = ({ title, description, onSeeMore }) => {
       </div>
       <Fade direction='up' triggerOnce>
         <div className='card__list'>
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
+          {data?.slice(0, 8)?.map((item) => (
+            <Link to={`${urls.movie}/${item.id}`} key={item.id}>
+              <CardItem {...item} />
+            </Link>
+          ))}
         </div>
       </Fade>
     </div>
