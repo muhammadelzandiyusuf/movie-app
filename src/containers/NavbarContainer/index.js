@@ -26,12 +26,12 @@ const NavbarContainer = () => {
       <div className='profile'>
         <div className='watchlist'>
           <h5 className='username font__size--12 font__weight--600'>Watchlist</h5>
-          <BsBookmarkHeartFill size={32} className='margin__right--16px' />
+          <BsBookmarkHeartFill size={24} className='margin__right--16px' />
         </div>
         <h5 className='username font__size--12 font__weight--600 margin__right--8px'>
           Hello, <span className='color__primary'>Elzandi</span>
         </h5>
-        <FaCircleUser size={32} />
+        <FaCircleUser size={24} />
       </div>
     </div>
   );

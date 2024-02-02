@@ -18,7 +18,7 @@ const SummaryMovie = () => {
               </div>
               <div className='summary__left__text'>
                 <IoPlayCircleOutline size={108} />
-                <h5 className='font__size--36'>The Ministry of Ungentlemanly Warfare</h5>
+                <div>The Ministry of Ungentlemanly Warfare</div>
               </div>
             </div>
           </div>
