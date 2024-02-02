@@ -5,6 +5,7 @@ import Loading from 'components/Loading';
 import routes from 'routes';
 import { store } from 'stores';
 import MainContainer from 'containers/MainContainer';
+import Page404 from 'errors/Page404';
 
 import 'assets/scss/global.scss';
 
@@ -18,6 +19,7 @@ function App() {
               {routes.map((route, index) => (
                 <Route {...route} key={index} />
               ))}
+              <Route path='*' element={<Page404 />} />
             </Routes>
           </MainContainer>
         </BrowserRouter>
