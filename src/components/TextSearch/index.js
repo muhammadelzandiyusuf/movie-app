@@ -22,12 +22,7 @@ const TextSearch = (props) => {
       className={`textfield ${props.icon ? 'is__icon' : ''}`}
     >
       {props.icon}
-      <input
-        data-testid='textsearch'
-        type='text'
-        {...props}
-        {...register('search', { required: true })}
-      />
+      <input data-testid='textsearch' type='text' {...props} {...register('search')} />
       <button type='submit' hidden />
     </form>
   );

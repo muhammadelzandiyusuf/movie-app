@@ -7,8 +7,9 @@ import { Fragment, useEffect, useState } from 'react';
 import Localbase from 'localbase';
 import { dbName, getSliceData, tbName } from 'utils';
 import { getMovies } from 'services';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Loading from 'components/Loading';
+import urls from 'utils/urls';
 
 import 'assets/scss/movie.scss';
 import 'assets/scss/card.scss';
@@ -52,8 +53,10 @@ const Anime = () => {
         {!isLoading && movies?.animeList?.length > 0 ? (
           <Fragment>
             <div className='movie__wrapper'>
-              {movies?.animeList?.slice(getSlice.from, getSlice.to)?.map((anime, index) => (
-                <CardItem {...anime} key={index} />
+              {movies?.animeList?.slice(getSlice.from, getSlice.to)?.map((anime) => (
+                <Link to={`${urls.movie}/${anime.id}`} key={anime.id}>
+                  <CardItem {...anime} />
+                </Link>
               ))}
             </div>
             <Pagination total={movies?.animeList?.length} limit={limit} current={getSlice.page} />
