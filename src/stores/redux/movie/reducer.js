@@ -1,5 +1,5 @@
 import actionType from './actionType';
-import { addDbCollection, tbWatch, updateObject } from 'utils';
+import { addDbCollection, tbRating, tbWatch, updateDbCollection, updateObject } from 'utils';
 
 const initialState = {
   originalListMovies: [],
@@ -10,6 +10,7 @@ const initialState = {
   summaryList: [],
   search: '',
   movieDetail: null,
+  ratings: [],
 };
 
 const getMovie = (state, action) => {
@@ -88,6 +89,34 @@ const getWatchList = (state, action) => {
   });
 };
 
+const getRating = (state, action) => {
+  return updateObject(state, {
+    ...state,
+    ratings: action.data,
+  });
+};
+
+const addRating = (state, action) => {
+  let ratings = [...state.ratings];
+  const exists = ratings.find((item) => item.id === action.data.id);
+  if (exists === undefined) {
+    ratings.push(action.data);
+    addDbCollection(tbRating, action.data);
+  } else {
+    ratings = ratings.map((obj) => {
+      if (obj.id === action.data.id) {
+        return { ...obj, rating: action.data.rating };
+      }
+      return obj;
+    });
+    updateDbCollection(tbRating, action.data.id, { rating: action.data.rating });
+  }
+  return updateObject(state, {
+    ...state,
+    ratings: ratings,
+  });
+};
+
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.GET_MOVIE:
@@ -102,6 +131,10 @@ const movieReducer = (state = initialState, action) => {
       return deleteWatchList(state, action);
     case actionType.GET_WATCHLIST:
       return getWatchList(state, action);
+    case actionType.GET_RATING:
+      return getRating(state, action);
+    case actionType.ADD_RATING:
+      return addRating(state, action);
     default:
       return state;
   }

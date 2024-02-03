@@ -29,3 +29,13 @@ export const getWatchList = (data) => ({
   type: actionType.GET_WATCHLIST,
   data: data,
 });
+
+export const getRating = (data) => ({
+  type: actionType.GET_RATING,
+  data: data,
+});
+
+export const addRating = (data) => ({
+  type: actionType.ADD_RATING,
+  data: data,
+});

@@ -5,6 +5,8 @@ const actionType = {
   ADD_WATCHLIST: 'ADD_WATCHLIST',
   DELETE_WATCHLIST: 'DELETE_WATCHLIST',
   GET_WATCHLIST: 'GET_WATCHLIST',
+  GET_RATING: 'GET_RATING',
+  ADD_RATING: 'ADD_RATING',
 };
 
 export default actionType;

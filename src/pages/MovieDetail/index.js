@@ -8,22 +8,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { movieSelector, getMovieDetail, getMovie } from 'stores';
 import Loading from 'components/Loading';
 import Localbase from 'localbase';
-import { dbName, tbName, tbWatch } from 'utils';
-import { addWatchlist, deleteWatchlist, getMovies, getWatchlist } from 'services';
+import { dbName, tbName, tbRating, tbWatch } from 'utils';
+import {
+  addRatings,
+  addWatchlist,
+  deleteWatchlist,
+  getMovies,
+  getWatchlist,
+  getRatings,
+} from 'services';
 import YoutubeIframe from 'components/YoutubeIframe';
 import { toast } from 'react-toastify';
 import { useOnlineStatus } from 'hooks/useOnlineStatus';
+import { CiStar } from 'react-icons/ci';
+import ModalRating from 'components/ModalRating';
 
 import 'assets/scss/movieDetail.scss';
 
 const MovieDetail = () => {
   const dispatch = useDispatch();
+  const params = useParams();
   const movies = useSelector(movieSelector);
   const movie = movies.movieDetail;
-  const params = useParams();
+  const yourRate = movies?.ratings?.find((item) => item.id === params.url);
   const isWatch = movies.watchList?.find((watch) => watch.id === params.url);
   const [isLoading, setIsLoading] = useState(true);
   const isOnline = useOnlineStatus();
+  const [showRate, setShowRate] = useState(false);
+  const [rating, setRating] = useState('');
 
   useEffect(() => {
     const localDb = new Localbase(dbName);
@@ -48,13 +60,24 @@ const MovieDetail = () => {
 
   useEffect(() => {
     const localDb = new Localbase(dbName);
-
     localDb
       .collection(tbWatch)
       .get()
       .then((collections) => {
         if (collections.length > 0) {
           getWatchlist(collections);
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    const localDb = new Localbase(dbName);
+    localDb
+      .collection(tbRating)
+      .get()
+      .then((collections) => {
+        if (collections.length > 0) {
+          getRatings(collections);
         }
       });
   }, []);
@@ -81,6 +104,32 @@ const MovieDetail = () => {
     });
   }, []);
 
+  const handleShowRate = () => {
+    setShowRate(true);
+  };
+
+  const handleCloseRate = () => {
+    setShowRate(false);
+  };
+
+  const ratingChanged = (rate) => {
+    setRating(rate);
+  };
+
+  const handleSubmitRate = useCallback(() => {
+    const localDb = new Localbase(dbName);
+    addRatings({ id: params.url, rating: rating });
+    localDb
+      .collection(tbRating)
+      .get()
+      .then((collections) => {
+        if (collections.length > 0) {
+          getRatings(collections);
+        }
+      });
+    setShowRate(false);
+  }, [params.url, rating]);
+
   return (
     <div className='movie__detail'>
       {isLoading && <Loading />}
@@ -89,14 +138,31 @@ const MovieDetail = () => {
           <div className='font__size--36 font__weight--700'>
             {movie?.title} {movie?.year}
           </div>
-          <div className='movie__detail__header__rate'>
-            <span className='font__size--16'>Rating</span>
-            <div className='movie__detail__header__number'>
-              <FaStar size={28} />
-              <span className='font__size--24 font__weight--700 margin__left--8px'>
-                {movie?.rate}
-              </span>
-              <span className='font__size--24 color__grey'>/10</span>
+          <div className='movie__detail__header__box'>
+            <div className='movie__detail__header__rate'>
+              <span className='font__size--16'>Rating</span>
+              <div className='movie__detail__header__number'>
+                <FaStar size={28} className='color__primary' />
+                <span className='font__size--24 font__weight--700 margin__left--8px'>
+                  {movie?.rate}
+                </span>
+                <span className='font__size--24 color__grey'>/10</span>
+              </div>
+            </div>
+            <div className='movie__detail__header__rate cursor--pointer' onClick={handleShowRate}>
+              <span className='font__size--16'>Your Rating</span>
+              <div className='movie__detail__header__number'>
+                {yourRate === undefined && <CiStar size={32} className='color__blue' />}
+                {yourRate !== undefined && (
+                  <>
+                    <FaStar size={28} className='color__blue' />
+                    <span className='font__size--24 font__weight--700 margin__left--8px'>
+                      {yourRate?.rating}
+                    </span>
+                    <span className='font__size--24 color__grey'>/10</span>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -161,6 +227,14 @@ const MovieDetail = () => {
           </div>
         </div>
       </Fade>
+      {showRate && (
+        <ModalRating
+          rate={yourRate?.rating}
+          ratingChanged={ratingChanged}
+          handleCloseRate={handleCloseRate}
+          handleSubmitRate={handleSubmitRate}
+        />
+      )}
     </div>
   );
 };

@@ -20,6 +20,15 @@
       background-color: $colorPrimaryHover;
     }
   }
+  &.secondary{
+    background-color: $colorWhite;
+    border-color: $colorBlue;
+    color: $colorBlue;
+    &:hover{
+      background-color: $colorBlueHover;
+      color: $colorWhite;
+    }
+  }
   &.fullwidth{
     width: 100%;
   }
