@@ -12,6 +12,7 @@ import { dbName, tbName, tbWatch } from 'utils';
 import { addWatchlist, deleteWatchlist, getMovies, getWatchlist } from 'services';
 import YoutubeIframe from 'components/YoutubeIframe';
 import { toast } from 'react-toastify';
+import { useOnlineStatus } from 'hooks/useOnlineStatus';
 
 import 'assets/scss/movieDetail.scss';
 
@@ -22,6 +23,7 @@ const MovieDetail = () => {
   const params = useParams();
   const isWatch = movies.watchList?.find((watch) => watch.id === params.url);
   const [isLoading, setIsLoading] = useState(true);
+  const isOnline = useOnlineStatus();
 
   useEffect(() => {
     const localDb = new Localbase(dbName);
@@ -29,16 +31,20 @@ const MovieDetail = () => {
       const payload = { url: '/assets/data/movies.json' };
       await getMovies(payload);
     };
-
+    if (isOnline) getDataMovie();
     localDb
       .collection(tbName)
       .get()
       .then((collections) => {
-        if (collections.length === 0 ? getDataMovie() : dispatch(getMovie(collections[0]['data'])));
+        if (
+          collections.length === 0
+            ? getDataMovie()
+            : dispatch(getMovie(collections[collections.length - 1]['data']))
+        );
         dispatch(getMovieDetail(params.url));
         setIsLoading(false);
       });
-  }, [params.url]);
+  }, [params.url, isOnline]);
 
   useEffect(() => {
     const localDb = new Localbase(dbName);

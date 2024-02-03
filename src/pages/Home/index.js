@@ -9,11 +9,13 @@ import { dbName, tbName, tbWatch } from 'utils';
 import { getMovies, addWatchlist, getWatchlist, deleteWatchlist } from 'services';
 import Loading from 'components/Loading';
 import { toast } from 'react-toastify';
+import { useOnlineStatus } from 'hooks/useOnlineStatus';
 
 const Home = () => {
   const dispatch = useDispatch();
   const movies = useSelector(movieSelector);
   const [isLoading, setIsLoading] = useState(true);
+  const isOnline = useOnlineStatus();
 
   const handleAddWatchlist = useCallback((data) => {
     addWatchlist(data);
@@ -43,15 +45,19 @@ const Home = () => {
       const payload = { url: '/assets/data/movies.json' };
       await getMovies(payload);
     };
-
+    if (isOnline) getDataMovie();
     localDb
       .collection(tbName)
       .get()
       .then((collections) => {
-        if (collections.length === 0 ? getDataMovie() : dispatch(getMovie(collections[0]['data'])));
+        if (
+          collections.length === 0
+            ? getDataMovie()
+            : dispatch(getMovie(collections[collections.length - 1]['data']))
+        );
         setIsLoading(false);
       });
-  }, []);
+  }, [isOnline]);
 
   useEffect(() => {
     const localDb = new Localbase(dbName);

@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import Loading from 'components/Loading';
 import { noDataImage } from 'libraries/image';
 import { toast } from 'react-toastify';
+import { useOnlineStatus } from 'hooks/useOnlineStatus';
 
 import 'assets/scss/movie.scss';
 import 'assets/scss/card.scss';
@@ -19,6 +20,7 @@ const Anime = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const movies = useSelector(movieSelector);
+  const isOnline = useOnlineStatus();
 
   const limit = 10;
   const params = new URLSearchParams(location.search);
@@ -32,15 +34,19 @@ const Anime = () => {
       const payload = { url: '/assets/data/movies.json' };
       await getMovies(payload);
     };
-
+    if (isOnline) getDataMovie();
     localDb
       .collection(tbName)
       .get()
       .then((collections) => {
-        if (collections.length === 0 ? getDataMovie() : dispatch(getMovie(collections[0]['data'])));
+        if (
+          collections.length === 0
+            ? getDataMovie()
+            : dispatch(getMovie(collections[collections.length - 1]['data']))
+        );
         setIsLoading(false);
       });
-  }, []);
+  }, [isOnline]);
 
   useEffect(() => {
     const localDb = new Localbase(dbName);
