@@ -1,4 +1,4 @@
-import { summaryThumbnailImage, thumbnailImage } from 'libraries/image';
+import { coverImage } from 'libraries/image';
 import { IoPlayCircleOutline } from 'react-icons/io5';
 import { Fade } from 'react-awesome-reveal';
 import ListSummary from './ListSummary';
@@ -7,22 +7,25 @@ import urls from 'utils/urls';
 
 import 'assets/scss/summary.scss';
 
-const SummaryMovie = () => {
+const SummaryMovie = ({ data }) => {
+  console.log('data', data);
   return (
     <div className='summary'>
       <Fade direction='up' triggerOnce>
-        <Link to={`${urls.movie}/url`}>
+        <Link to={`${urls.movie}/${data[0]?.id}`}>
           <div className='summary__left'>
             <div className='summary__left__content'>
-              <img src={summaryThumbnailImage.image} alt={summaryThumbnailImage.alt} />
+              <img src={coverImage.image} alt={coverImage.alt} />
               <div className='summary__left__overlay' />
               <div className='summary__left__wrapper'>
                 <div className='summary__left__cover'>
-                  <img src={thumbnailImage.image} alt={thumbnailImage.alt} />
+                  <img src={data[0]?.thumbnail} alt='Image Summary' />
                 </div>
                 <div className='summary__left__text'>
                   <IoPlayCircleOutline size={108} />
-                  <div>The Ministry of Ungentlemanly Warfare</div>
+                  <div>
+                    {data[0]?.title} ({data[0]?.year})
+                  </div>
                 </div>
               </div>
             </div>
@@ -30,7 +33,7 @@ const SummaryMovie = () => {
         </Link>
       </Fade>
       <div className='summary__right'>
-        <ListSummary />
+        <ListSummary data={data} />
       </div>
     </div>
   );

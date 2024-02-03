@@ -7,12 +7,14 @@ const initialState = {
   animeList: [],
   movieList: [],
   watchList: [],
+  summaryList: [],
   search: '',
 };
 
 const getMovie = (state, action) => {
   const animeList = action.data?.filter((item) => item.type === 'Anime');
   const movieList = action.data?.filter((item) => item.type === 'Movie');
+  const summaryList = action.data?.filter((item) => item.type === 'Summary');
 
   const originalList = state.originalListMovies;
   const search = state.search.toLowerCase();
@@ -29,6 +31,7 @@ const getMovie = (state, action) => {
     movies: search === '' ? action.data : searchList,
     animeList: animeList,
     movieList: movieList,
+    summaryList: summaryList,
   });
 };
 

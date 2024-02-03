@@ -31,10 +31,12 @@ const Home = () => {
       });
   }, []);
 
+  console.log('movies.summaryList', movies.summaryList);
+
   return (
     <Fragment>
       {isLoading && <Loading />}
-      <SummaryMovie />
+      <SummaryMovie data={movies.summaryList} />
       <TopMovie
         title='Top Movies'
         description='Movies kesayangan kamu'
