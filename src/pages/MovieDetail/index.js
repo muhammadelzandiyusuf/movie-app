@@ -1,97 +1,97 @@
 import { FaPlus, FaStar } from 'react-icons/fa';
-import Youtube from 'react-youtube';
 import { Fade } from 'react-awesome-reveal';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'components/Button';
-import { thumbnailImage } from 'libraries/image';
 import 'assets/scss/movieDetail.scss';
-
-const frameRatio = [1180, 640];
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { movieSelector, getMovieDetail, getMovie } from 'stores';
+import Loading from 'components/Loading';
+import Localbase from 'localbase';
+import { dbName, tbName } from 'utils';
+import { getMovies } from 'services';
+import YoutubeIframe from 'components/YoutubeIframe';
 
 const MovieDetail = () => {
-  const frameEl = useRef(null);
+  const dispatch = useDispatch();
+  const movie = useSelector(movieSelector).movieDetail;
+  const params = useParams();
+
+  console.log('movie', movie);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    function handleResize() {
-      if (frameEl.current) {
-        const frameWidth = frameEl.current.clientWidth;
-        const height = frameWidth * (frameRatio[1] / frameRatio[0]);
-        frameEl.current.style.height = `${height}px`;
-      }
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
+    const localDb = new Localbase(dbName);
+    const getDataMovie = async () => {
+      const payload = { url: '/assets/data/movies.json' };
+      await getMovies(payload);
     };
-  }, []);
+
+    localDb
+      .collection(tbName)
+      .get()
+      .then((collections) => {
+        if (collections.length === 0 ? getDataMovie() : dispatch(getMovie(collections[0]['data'])));
+        dispatch(getMovieDetail(params.url));
+        setIsLoading(false);
+      });
+  }, [params.url]);
 
   return (
     <div className='movie__detail'>
+      {isLoading && <Loading />}
       <Fade direction='up' triggerOnce cascade>
         <div className='movie__detail__header'>
-          <h1 className='font__size--36 font__weight--700'>Indoneisa</h1>
+          <div className='font__size--36 font__weight--700'>
+            {movie?.title} {movie?.year}
+          </div>
           <div className='movie__detail__header__rate'>
             <span className='font__size--16'>Rating</span>
             <div className='movie__detail__header__number'>
               <FaStar size={28} />
-              <span className='font__size--24 font__weight--700 margin__left--8px'>7.8</span>
+              <span className='font__size--24 font__weight--700 margin__left--8px'>
+                {movie?.rate}
+              </span>
               <span className='font__size--24 color__grey'>/10</span>
             </div>
           </div>
         </div>
       </Fade>
-      <div ref={frameEl} className='movie__detail__video'>
-        <Youtube
-          videoId='fXqQ2tYW5Sk'
-          title='Shipper About Us'
-          opts={{
-            width: '100%',
-            height: '100%',
-            playerVars: { rel: 0 },
-          }}
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        />
-      </div>
+      <YoutubeIframe videoId={movie?.youtubeId} videoTitle={movie?.title} />
       <Fade direction='up' triggerOnce cascade>
         <div className='movie__detail__content'>
           <div className='movie__detail__content__description'>
             <div className='movie__detail__genre'>
-              <div className='movie__detail__genre__item'>
-                <span className='font__size--14'>Romance</span>
-              </div>
-              <div className='movie__detail__genre__item'>
-                <span className='font__size--14'>Komedi</span>
-              </div>
+              {movie?.genre?.map((item) => (
+                <div className='movie__detail__genre__item' key={item}>
+                  <span className='font__size--14'>{item}</span>
+                </div>
+              ))}
             </div>
             <div className='movie__detail__content__description__wrapper'>
               <div className='movie__detail__content__description__image'>
-                <img src={thumbnailImage.image} alt={thumbnailImage.alt} />
+                <img src={movie?.thumbnail} alt={movie?.title} />
               </div>
               <div className='movie__detail__content__wrapper'>
-                <div className='font__size--16 margin__bottom--16px'>Description</div>
+                <div className='font__size--16 margin__bottom--16px'>{movie?.description}</div>
                 <div className='font__size--16'>
                   Director{' '}
                   <span className='color__primary font__weight--700 margin__left--8px'>
-                    David Fincer
+                    {movie?.director}
                   </span>
                 </div>
                 <div className='font__size--16'>
                   Writers{' '}
                   <span className='color__primary font__weight--700 margin__left--8px'>
-                    Chuck Palahniuk Jim Uhls
+                    {movie?.writers}
                   </span>
                 </div>
                 <div className='font__size--16'>
                   Stars{' '}
                   <span className='color__primary font__weight--700 margin__left--8px'>
-                    David Fincer
+                    {movie?.stars}
                   </span>
                 </div>
               </div>

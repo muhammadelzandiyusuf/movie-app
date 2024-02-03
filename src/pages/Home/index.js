@@ -31,8 +31,6 @@ const Home = () => {
       });
   }, []);
 
-  console.log('movies.summaryList', movies.summaryList);
-
   return (
     <Fragment>
       {isLoading && <Loading />}

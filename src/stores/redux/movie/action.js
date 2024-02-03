@@ -9,3 +9,8 @@ export const searchMovie = (movie) => ({
   type: actionType.SEARCH_MOVIE,
   data: movie,
 });
+
+export const getMovieDetail = (id) => ({
+  type: actionType.GET_MOVIE_DETAIL,
+  id: id,
+});

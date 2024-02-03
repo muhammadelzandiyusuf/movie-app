@@ -9,6 +9,7 @@ const initialState = {
   watchList: [],
   summaryList: [],
   search: '',
+  movieDetail: null,
 };
 
 const getMovie = (state, action) => {
@@ -51,12 +52,25 @@ const searchMovie = (state, action) => {
   });
 };
 
+const getMovieDetail = (state, action) => {
+  const detail = state.originalListMovies.find((item) => item.id === action.id);
+  console.log('detail', detail);
+  console.log('state.originalListMovies', state.originalListMovies);
+  console.log('action.id', action.id);
+  return updateObject(state, {
+    ...state,
+    movieDetail: detail,
+  });
+};
+
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.GET_MOVIE:
       return getMovie(state, action);
     case actionType.SEARCH_MOVIE:
       return searchMovie(state, action);
+    case actionType.GET_MOVIE_DETAIL:
+      return getMovieDetail(state, action);
     default:
       return state;
   }

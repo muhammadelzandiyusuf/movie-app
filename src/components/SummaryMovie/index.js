@@ -8,7 +8,6 @@ import urls from 'utils/urls';
 import 'assets/scss/summary.scss';
 
 const SummaryMovie = ({ data }) => {
-  console.log('data', data);
   return (
     <div className='summary'>
       <Fade direction='up' triggerOnce>
