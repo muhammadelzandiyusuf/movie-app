@@ -18,8 +18,6 @@ const MovieDetail = () => {
   const movie = useSelector(movieSelector).movieDetail;
   const params = useParams();
 
-  console.log('movie', movie);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
