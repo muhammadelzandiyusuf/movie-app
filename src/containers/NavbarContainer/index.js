@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import { toggleMenu } from 'stores';
+import { useDispatch, useSelector } from 'react-redux';
+import { movieSelector, toggleMenu } from 'stores';
 import { AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
 import TextSearch from 'components/TextSearch';
 import { BsBookmarkHeartFill } from 'react-icons/bs';
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 const NavbarContainer = () => {
   const dispatch = useDispatch();
+  const movies = useSelector(movieSelector);
   const openMenu = () => {
     dispatch(toggleMenu(true));
   };
@@ -28,7 +29,9 @@ const NavbarContainer = () => {
       <div className='profile'>
         <Link to={urls.watchlist}>
           <div className='watchlist'>
-            <h5 className='username font__size--12 font__weight--600'>Watchlist</h5>
+            <h5 className='username font__size--12 font__weight--600'>
+              Watchlist ({movies?.watchList?.length ?? ''})
+            </h5>
             <BsBookmarkHeartFill size={24} className='margin__right--16px' />
           </div>
         </Link>

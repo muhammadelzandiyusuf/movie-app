@@ -10,11 +10,16 @@ const MovieDetailPages = lazy(() => import('pages/MovieDetail'));
 
 const routes = [
   { title: 'Home Management', element: <HomePages />, exact: true, path: urls.home },
-  { title: 'Movie Management', element: <MoviePages />, path: urls.movie },
-  { title: 'Anime Management', element: <AnimePages />, path: urls.anime },
-  { title: 'Search Management', element: <SearchPages />, path: urls.search },
-  { title: 'Watchlist Management', element: <WatchlistPages />, path: urls.watchlist },
-  { title: 'Movie Detail Management', element: <MovieDetailPages />, path: urls.movieDetail },
+  { title: 'Movie Management', element: <MoviePages />, exact: true, path: urls.movie },
+  { title: 'Anime Management', element: <AnimePages />, exact: true, path: urls.anime },
+  { title: 'Search Management', element: <SearchPages />, exact: true, path: urls.search },
+  { title: 'Watchlist Management', element: <WatchlistPages />, exact: true, path: urls.watchlist },
+  {
+    title: 'Movie Detail Management',
+    element: <MovieDetailPages />,
+    exact: true,
+    path: urls.movieDetail,
+  },
 ];
 
 export default routes;

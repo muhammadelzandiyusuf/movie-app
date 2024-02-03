@@ -14,3 +14,18 @@ export const getMovieDetail = (id) => ({
   type: actionType.GET_MOVIE_DETAIL,
   id: id,
 });
+
+export const addWatchList = (data) => ({
+  type: actionType.ADD_WATCHLIST,
+  data: data,
+});
+
+export const deleteWatchList = (id) => ({
+  type: actionType.DELETE_WATCHLIST,
+  id: id,
+});
+
+export const getWatchList = (data) => ({
+  type: actionType.GET_WATCHLIST,
+  data: data,
+});

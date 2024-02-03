@@ -50,6 +50,7 @@
       color: $colorWhite;
       background-color: $colorPrimary;
       border-radius: 8px;
+      z-index: 9;
       &:hover{
         cursor: pointer;
         background-color: $colorPrimaryHover;
@@ -75,5 +76,6 @@
   }
   &:hover{
     box-shadow: 2px 2px 15px 0 $colorBorder;
+    cursor: pointer;
   }
 }

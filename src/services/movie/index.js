@@ -1,6 +1,6 @@
 import { API } from 'configs';
-import { addDbCollection, handleAsync, tbName } from 'utils';
-import { store, getMovie } from 'stores';
+import { addDbCollection, deleteDbCollection, handleAsync, tbName, tbWatch } from 'utils';
+import { store, getMovie, addWatchList, getWatchList, deleteWatchList } from 'stores';
 
 const { dispatch } = store;
 
@@ -12,4 +12,17 @@ export const getMovies = async (payload = {}) => {
     addDbCollection(tbName, { data });
     return data;
   }
+};
+
+export const getWatchlist = (data) => {
+  dispatch(getWatchList(data));
+};
+
+export const addWatchlist = (data) => {
+  dispatch(addWatchList(data));
+};
+
+export const deleteWatchlist = (id) => {
+  dispatch(deleteWatchList(id));
+  deleteDbCollection(tbWatch, id);
 };

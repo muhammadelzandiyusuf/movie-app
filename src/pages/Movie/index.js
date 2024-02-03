@@ -3,15 +3,15 @@ import CardItem from 'components/Card/CardItem';
 import Pagination from 'components/Pagination';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getMovie, movieSelector } from 'stores';
-import { dbName, getSliceData, tbName } from 'utils';
-import { Fragment, useEffect, useState } from 'react';
+import { dbName, getSliceData, tbName, tbWatch } from 'utils';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import Localbase from 'localbase';
-import { getMovies } from 'services';
+import { addWatchlist, deleteWatchlist, getMovies, getWatchlist } from 'services';
 import Loading from 'components/Loading';
-import urls from 'utils/urls';
 import { noDataImage } from 'libraries/image';
+import { toast } from 'react-toastify';
 
 import 'assets/scss/movie.scss';
 import 'assets/scss/card.scss';
@@ -43,6 +43,41 @@ const Movie = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const localDb = new Localbase(dbName);
+
+    localDb
+      .collection(tbWatch)
+      .get()
+      .then((collections) => {
+        if (collections.length > 0) {
+          getWatchlist(collections);
+        }
+      });
+  }, []);
+
+  const handleAddWatchlist = useCallback((data) => {
+    addWatchlist(data);
+    toast.success(`${data.title} ditambahkan`, {
+      hideProgressBar: true,
+      closeButton: false,
+      autoClose: 3000,
+      theme: 'colored',
+      position: 'top-right',
+    });
+  }, []);
+
+  const handleDeleteWatchlist = useCallback((data) => {
+    deleteWatchlist(data.id);
+    toast.success(`${data.title} dihapus`, {
+      hideProgressBar: true,
+      closeButton: false,
+      autoClose: 3000,
+      theme: 'colored',
+      position: 'top-right',
+    });
+  }, []);
+
   return (
     <div className='movie'>
       {isLoading && <Loading />}
@@ -55,11 +90,18 @@ const Movie = () => {
         {!isLoading && movies?.movieList?.length > 0 ? (
           <Fragment>
             <div className='movie__wrapper'>
-              {movies?.movieList?.slice(getSlice.from, getSlice.to)?.map((movie) => (
-                <Link to={`${urls.movie}/${movie.id}`} key={movie.id}>
-                  <CardItem {...movie} />
-                </Link>
-              ))}
+              {movies?.movieList?.slice(getSlice.from, getSlice.to)?.map((movie) => {
+                const isWatch = movies?.watchList?.find((watch) => watch.id === movie.id);
+                return (
+                  <CardItem
+                    {...movie}
+                    handleAddWatchlist={handleAddWatchlist}
+                    handleDeleteWatchlist={handleDeleteWatchlist}
+                    key={movie.id}
+                    isWatch={isWatch === undefined}
+                  />
+                );
+              })}
             </div>
             <Pagination total={movies?.movieList?.length} limit={limit} current={getSlice.page} />
           </Fragment>

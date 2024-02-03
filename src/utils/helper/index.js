@@ -2,6 +2,7 @@ import Localbase from 'localbase';
 
 export const dbName = 'movies';
 export const tbName = 'movie';
+export const tbWatch = 'watch';
 const localDb = new Localbase(dbName);
 
 export const getPath = (path = '') => (path ? `/${path}` : '');
@@ -58,4 +59,8 @@ export const getSliceData = (params, limit) => {
 
 export const addDbCollection = (table, value) => {
   localDb.collection(table).add(value);
+};
+
+export const deleteDbCollection = (table, id) => {
+  localDb.collection(table).doc({ id: id }).delete();
 };

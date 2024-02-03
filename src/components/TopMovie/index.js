@@ -2,12 +2,19 @@ import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
 import CardItem from '../Card/CardItem';
-import urls from 'utils/urls';
 
 import 'assets/scss/header.scss';
 import 'assets/scss/card.scss';
 
-const TopMovie = ({ title, description, onSeeMore, data }) => {
+const TopMovie = ({
+  title,
+  description,
+  onSeeMore,
+  data,
+  handleAddWatchlist,
+  watchlist,
+  handleDeleteWatchlist,
+}) => {
   return (
     <div className='header'>
       <div className='header__content'>
@@ -29,11 +36,18 @@ const TopMovie = ({ title, description, onSeeMore, data }) => {
       </div>
       <Fade direction='up' triggerOnce>
         <div className='card__list'>
-          {data?.slice(0, 8)?.map((item) => (
-            <Link to={`${urls.movie}/${item.id}`} key={item.id}>
-              <CardItem {...item} />
-            </Link>
-          ))}
+          {data?.slice(0, 8)?.map((item) => {
+            const isWatch = watchlist?.find((watch) => watch.id === item.id);
+            return (
+              <CardItem
+                {...item}
+                handleAddWatchlist={handleAddWatchlist}
+                key={item.id}
+                isWatch={isWatch === undefined}
+                handleDeleteWatchlist={handleDeleteWatchlist}
+              />
+            );
+          })}
         </div>
       </Fade>
     </div>

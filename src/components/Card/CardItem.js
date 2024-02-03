@@ -1,19 +1,43 @@
 import CardLabel from './CardLabel';
-import { FaPlus, FaStar } from 'react-icons/fa';
+import { FaMinus, FaPlus, FaStar } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import urls from 'utils/urls';
 
-const CardItem = ({ title, rate, year, thumbnail }) => {
+const CardItem = ({
+  id,
+  title,
+  rate,
+  year,
+  thumbnail,
+  handleAddWatchlist,
+  isWatch,
+  handleDeleteWatchlist,
+}) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`${urls.movie}/${id}`, { replace: true });
+  };
+
   return (
-    <div className={'list__item'}>
-      <div className='item__header'>
+    <div className='list__item'>
+      <div className='item__header' onClick={handleNavigate}>
         <img src={thumbnail} alt={title} />
       </div>
       <div className='item__body'>
-        <div className='item__start'>
+        <div className='item__start' onClick={handleNavigate}>
           <FaStar size={18} /> <span className='font__size--14'>{rate}</span>
         </div>
-        <CardLabel label={year} value={title} />
-        <div className='item__watch'>
-          <FaPlus size={14} /> Watchlist
+        <CardLabel label={year} value={title} handleNavigate={handleNavigate} />
+        <div
+          className='item__watch'
+          onClick={() =>
+            isWatch
+              ? handleAddWatchlist({ id, title, rate, year, thumbnail })
+              : handleDeleteWatchlist({ id, title })
+          }
+        >
+          {isWatch ? <FaPlus size={14} /> : <FaMinus size={14} />} Watchlist
         </div>
       </div>
     </div>

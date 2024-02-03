@@ -1,12 +1,9 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getPath, getCustomUrl, createUrlParamFromObj, getContentType, createHeader } from 'utils';
-import appConfigs from 'configs/appConfigs';
-
-const baseUrl = appConfigs;
 
 export const apiInstance = axios.create({
-  baseURL: `${baseUrl.url.api}`,
+  baseURL: '',
   timeout: 60000,
   validateStatus: (status) => status >= 200 && status <= 500,
 });
