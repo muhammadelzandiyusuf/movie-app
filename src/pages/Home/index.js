@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { movieSelector, getMovie } from 'stores';
 import Localbase from 'localbase';
 import { dbName, tbName, tbWatch } from 'utils';
-import { getMovies, addWatchlist, getWatchlist, deleteWatchlist } from "services";
+import { getMovies, addWatchlist, getWatchlist, deleteWatchlist } from 'services';
 import Loading from 'components/Loading';
 import { toast } from 'react-toastify';
 

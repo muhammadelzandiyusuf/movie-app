@@ -1,8 +1,12 @@
 import 'assets/scss/button.scss';
 
-const Button = ({ type, children, fullWidth }) => {
+const Button = ({ type, children, fullWidth, onClick }) => {
   return (
-    <button data-testid='button' className={`button ${type} ${fullWidth ? 'fullwidth' : ''}`}>
+    <button
+      data-testid='button'
+      className={`button ${type} ${fullWidth ? 'fullwidth' : ''}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

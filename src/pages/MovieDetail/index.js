@@ -1,23 +1,26 @@
-import { FaPlus, FaStar } from 'react-icons/fa';
+import { FaMinus, FaPlus, FaStar } from 'react-icons/fa';
 import { Fade } from 'react-awesome-reveal';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Button from 'components/Button';
-import 'assets/scss/movieDetail.scss';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { movieSelector, getMovieDetail, getMovie } from 'stores';
 import Loading from 'components/Loading';
 import Localbase from 'localbase';
-import { dbName, tbName } from 'utils';
-import { getMovies } from 'services';
+import { dbName, tbName, tbWatch } from 'utils';
+import { addWatchlist, deleteWatchlist, getMovies, getWatchlist } from 'services';
 import YoutubeIframe from 'components/YoutubeIframe';
+import { toast } from 'react-toastify';
+
+import 'assets/scss/movieDetail.scss';
 
 const MovieDetail = () => {
   const dispatch = useDispatch();
-  const movie = useSelector(movieSelector).movieDetail;
+  const movies = useSelector(movieSelector);
+  const movie = movies.movieDetail;
   const params = useParams();
-
+  const isWatch = movies.watchList?.find((watch) => watch.id === params.url);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -36,6 +39,41 @@ const MovieDetail = () => {
         setIsLoading(false);
       });
   }, [params.url]);
+
+  useEffect(() => {
+    const localDb = new Localbase(dbName);
+
+    localDb
+      .collection(tbWatch)
+      .get()
+      .then((collections) => {
+        if (collections.length > 0) {
+          getWatchlist(collections);
+        }
+      });
+  }, []);
+
+  const handleAddWatchlist = useCallback((data) => {
+    addWatchlist(data);
+    toast.success(`${data.title} ditambahkan`, {
+      hideProgressBar: true,
+      closeButton: false,
+      autoClose: 3000,
+      theme: 'colored',
+      position: 'top-right',
+    });
+  }, []);
+
+  const handleDeleteWatchlist = useCallback((data) => {
+    deleteWatchlist(data.id);
+    toast.success(`${data.title} dihapus`, {
+      hideProgressBar: true,
+      closeButton: false,
+      autoClose: 3000,
+      theme: 'colored',
+      position: 'top-right',
+    });
+  }, []);
 
   return (
     <div className='movie__detail'>
@@ -96,8 +134,22 @@ const MovieDetail = () => {
             </div>
           </div>
           <div className='movie__detail__content__watch'>
-            <Button type='primary' fullWidth>
-              <FaPlus size={18} />
+            <Button
+              type='primary'
+              fullWidth
+              onClick={() =>
+                isWatch === undefined
+                  ? handleAddWatchlist({
+                      id: movie?.id,
+                      title: movie?.title,
+                      rate: movie?.rate,
+                      year: movie?.year,
+                      thumbnail: movie?.thumbnail,
+                    })
+                  : handleDeleteWatchlist({ id: movie?.id, title: movie?.title })
+              }
+            >
+              {isWatch === undefined ? <FaPlus size={18} /> : <FaMinus size={18} />}
               <span className='font__size--20 font__weight--700'>Watchlist</span>
             </Button>
           </div>
